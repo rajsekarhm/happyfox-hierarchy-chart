@@ -97,3 +97,22 @@
     color: #2563eb;
     margin-top: 0.25rem;
   }
+
+  .orgcontainer {
+    flex: 1;
+    padding: 2rem;
+    overflow: auto;
+    background: #f9fafb; /* subtle background */
+  }
+  
+  .orgheading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #1f2937; /* gray-800 */
+  }
+  
+  .orgwrapper {
+    display: inline-block;
+    min-width: 100%;
+  }

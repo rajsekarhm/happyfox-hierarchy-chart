@@ -1,8 +1,8 @@
 import React from "react"
-import HierarchyView from "./components/HierarchyView"
+import HierarchyContainer from "./components/HierarchyContainer"
 function App() {
 
-  return ( <HierarchyView/>)
+  return ( <HierarchyContainer/>)
 }
 
 export default App

@@ -1,0 +1,40 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* wraps all children */
+  .childrenWrapper {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    position: relative;
+  }
+  
+  /* FULL WIDTH line only once per row */
+  .horizontalLine {
+    position: absolute;
+    top: -16px;
+    left: 0;
+    right: 0;
+    border-top: 2px solid #93c5fd;
+    height: 2px;
+  }
+  
+  /* wrapper around each child node */
+  .childWrapper {
+    position: relative;
+  }
+  
+  /* SMALL connector from child → horizontal line */
+  .verticalLine {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;       
+    height: 16px;     
+    background-color: #93c5fd;
+  }
+  
