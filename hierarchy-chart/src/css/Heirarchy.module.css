@@ -1,118 +1,138 @@
-
 .container {
-    display: flex;
-    height: 100vh;
-    background-color: #f3f4f6;
-  }
-  
-  .sidebar {
-    width: 20rem;
-    background-color: white;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    padding: 1rem;
-    overflow-y: auto;
-  }
-  
-  .title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .searchWrapper {
-    position: relative;
-    margin-bottom: 1rem;
-    
-  }
-  
-  .searchInput {
-    width: 100%;
-    padding: 0.5rem 2rem 0.5rem 2.5rem;
-    border: 1px solid #d1d5db;
-    border-radius: 0.5rem;
-    outline: none;
-  }
-  
-  .searchInput:focus {
-    box-shadow: 0 0 0 2px #3b82f6;
-  }
-  
+  display: flex;
+  height: 100vh;
+  background-color: #f3f4f6;
+}
 
-  .selectWrapper {
-    position: relative;
-    margin-bottom: 1rem;
-  }
-  
-  .select {
-    width: 100%;
-    padding: 0.5rem 1rem;
-    border: 1px solid #d1d5db;
-    border-radius: 0.5rem;
-    appearance: none;
-    outline: none;
-    background-color: white;
-    cursor: pointer;
-  }
-  
-  .select:focus {
-    box-shadow: 0 0 0 2px #3b82f6;
-  }
-  
-  .employeeList {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
+.sidebar {
+  width: 20rem;
+  background-color: white;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
 
-  .employeeCard {
-    padding: 0.75rem;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.15s ease-in-out;
-  }
-  
-  .employeeCard:hover {
-    background-color: #f9fafb;
-  }
-  
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #1f2937;
+}
 
-  .employeeName {
-    font-weight: 600;
-    color: #1f2937;
-  }
-  
-  .employeeDesignation {
-    font-size: 0.875rem;
-    color: #4b5563;
-    margin-top: 0.25rem;
-  }
-  
-  .employeeTeam {
-    font-size: 0.75rem;
-    color: #2563eb;
-    margin-top: 0.25rem;
-  }
+.searchWrapper {
+  position: relative;
+  margin-bottom: 0.5rem;
+}
 
-  .orgcontainer {
-    flex: 1;
-    padding: 2rem;
-    overflow: auto;
-    background: #f9fafb; /* subtle background */
-  }
-  
-  .orgheading {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: #1f2937; /* gray-800 */
-  }
-  
-  .orgwrapper {
-    display: inline-block;
-    min-width: 100%;
-  }
+.searchInput {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid #d1d5db;
+  border-radius: 0.625rem;
+  appearance: none;
+  outline: none;
+  background-color: white;
+  font-size: 0.95rem;
+  transition: all 0.2s ease-in-out;
+  box-sizing: border-box;
+}
+
+.searchInput::placeholder {
+  color: #9ca3af;
+}
+
+.searchInput:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background-color: #f8fbff;
+}
+
+.selectWrapper {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid #d1d5db;
+  border-radius: 0.625rem;
+  appearance: none;
+  outline: none;
+  background-color: white;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-sizing: border-box;
+}
+
+.select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background-color: #f8fbff;
+}
+
+.employeeList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.employeeCard {
+  padding: 0.875rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.625rem;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  background-color: #ffffff;
+}
+
+.employeeCard:hover {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.employeeName {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 0.95rem;
+}
+
+.employeeDesignation {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.employeeTeam {
+  font-size: 0.75rem;
+  color: #2563eb;
+  margin-top: 0.375rem;
+  font-weight: 500;
+}
+
+.orgcontainer {
+  flex: 1;
+  padding: 2rem;
+  overflow: auto;
+  background: #f9fafb;
+}
+
+.orgheading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+}
+
+.orgwrapper {
+  display: inline-block;
+  min-width: 100%;
+}

@@ -1,95 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import styles from "../css/Heirarchy.module.css";
 import TreeView from "./TreeView";
-/**https://randomuser.me/api/portraits/men/75.jpg */
-var mockData = [
-  {
-    id: 1,
-    name: "Mark Hill",
-    designation: "CEO",
-    team: "Executive",
-    manager: null,
-  },
-  {
-    id: 2,
-    name: "Joe Linux",
-    designation: "VP Engineering",
-    team: "Engineering",
-    manager: 1,
-  },
-  {
-    id: 3,
-    name: "John Green",
-    designation: "VP Sales",
-    team: "Sales",
-    manager: 1,
-  },
-  {
-    id: 4,
-    name: "Ron Blomquist",
-    designation: "Senior Engineer",
-    team: "Engineering",
-    manager: 2,
-  },
-  {
-    id: 5,
-    name: "Sarah Chen",
-    designation: "Engineer",
-    team: "Engineering",
-    manager: 2,
-  },
-  {
-    id: 6,
-    name: "Mike Ross",
-    designation: "Sales Manager",
-    team: "Sales",
-    manager: 3,
-  },
-  {
-    id: 7,
-    name: "Lisa Wang",
-    designation: "Sales Rep",
-    team: "Sales",
-    manager: 6,
-  },
-  {
-    id: 8,
-    name: "Tom Brady",
-    designation: "Junior Engineer",
-    team: "Engineering",
-    manager: 4,
-  },
-  {
-    id: 9,
-    name: "Amy Adams",
-    designation: "VP Marketing",
-    team: "Marketing",
-    manager: 1,
-  },
-  {
-    id: 10,
-    name: "Bob Smith",
-    designation: "Marketing Manager",
-    team: "Marketing",
-    manager: 9,
-  },
-];
-
-const api = {
-  getEmployees: function () {
-    return Promise.resolve(mockData);
-  },
-  updateEmployee: function (empId, newManagerId) {
-    mockData = mockData.map((emp) => {
-      if (empId == emp.id) {
-        emp.manager = newManagerId;
-        return emp;
-      }
-      return emp;
-    });
-    return Promise.resolve({ success: true });
-  },
-};
 
 function HierarchyContainer() {
   const [employees, setEmployees] = useState([]);
@@ -100,9 +11,11 @@ function HierarchyContainer() {
 
   useEffect(() => {
     async function get() {
-      const employess = await api.getEmployees();
-      setEmployees(() => employess);
-      setFilteredEmployees(() => employess);
+      var response = await fetch("/api/orgtree");
+      var _employess = await response.json();
+      const { org } = _employess;
+      setEmployees(() => org);
+      setFilteredEmployees(() => org);
     }
     get();
   }, []);
@@ -127,7 +40,7 @@ function HierarchyContainer() {
         })
       );
     }
-  }, [searchTerm, selectedTeam]);
+  }, [searchTerm, selectedTeam, employees]);
 
   const getChartEmployees = useCallback(() => {
     if (selectedTeam === "All") return employees;
@@ -164,18 +77,29 @@ function HierarchyContainer() {
       return;
     }
 
-    await api.updateEmployee(draggedEmployee.id, newManager.id);
+    // Prevent circular reference
+    let current = newManager;
+    while (current) {
+      if (current.id === draggedEmployee.id) {
+        alert("Cannot make an employee their own subordinate!");
+        setDraggedEmployee(null);
+        return;
+      }
+      current = employees.find((e) => e.id === current.manager);
+    }
 
-    setEmployees((prev) => {
-      return prev.map((emp) => {
-        if (draggedEmployee.id == newManager.id) {
-          return { ...emp, manager: newManager.id };
-        }
-        return emp;
-      });
+    const updateEmployeeList = await fetch("/api/manager/changed", {
+      method: "PUT",
+      body: JSON.stringify({
+        employees,
+        employeeId: draggedEmployee.id,
+        managerId: newManager.id,
+      }),
     });
+    const response = await updateEmployeeList.json()
+    setEmployees(response);
 
-    setDraggedEmployee(null)
+    setDraggedEmployee(null);
   };
   const handleDragOver = (e) => {
     e.preventDefault();

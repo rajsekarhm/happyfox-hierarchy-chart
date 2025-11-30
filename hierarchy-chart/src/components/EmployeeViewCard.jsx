@@ -10,6 +10,7 @@ function EmployeeViewCard(props) {
       onDragOver={onDragOver}
       className={`${styles.card} ${isDragging ? styles.dragging : ""}`}
     >
+      <img src={employee.img_src}/>
       <div className={styles.name}>{employee.name}</div>
       <div className={styles.designation}>{employee.designation}</div>
       <div className={styles.team}>{employee.team}</div>

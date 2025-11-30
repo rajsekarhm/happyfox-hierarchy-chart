@@ -2,7 +2,8 @@ import EmployeeViewCard from "./EmployeeViewCard";
 import styles from "../css/Tree.module.css";
 
 function TreeView(props) {
-  const { employee, employees, onDragStart, onDragOver, draggedId, onDrop } = props;
+  const { employee, employees, onDragStart, onDragOver, draggedId, onDrop } =
+    props;
   const childrens = employees.filter((emp) => employee.id == emp.manager);
   const isDragging = draggedId === employee.id;
 
@@ -15,20 +16,25 @@ function TreeView(props) {
         onDragOver={onDragOver}
         isDragging={isDragging}
       />
-
       {childrens.length > 0 && (
         <div className={styles.childrenWrapper}>
-            
-          {childrens.length > 1 ? 
-            <div className={styles.horizontalLine} /> : <div className={styles.verticalLine} />
-          }
+          {childrens.length > 1 ? (
+            <>
+              <div className={styles.horizontalLine} />
+            </>
+          ) : (
+            <div className={styles.verticalLine} />
+          )}
 
           {childrens.map((child) => (
             <div key={child.id} className={styles.childWrapper}>
-
-              {childrens.length > 1 && (
-                <div className={styles.verticalLine} />
-              )}
+              <div
+                className={
+                  childrens.length > 1
+                    ? styles.verticalLine
+                    : styles.singleVerticalLine
+                }
+              />
 
               <TreeView
                 employee={child}
